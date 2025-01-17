@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Art Gallery</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        /* Gallery Layout */
+        .gallery {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .art-piece {
+            background-color: #2a2a2a;
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .art-piece:hover {
+            transform: translateY(-5px);
+        }
+
+        .art-title {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        /* 1. Camera Icon */
+        .camera {
+            position: relative;
+            width: 200px;
+            height: 160px;
+        }
+
+        .camera-body {
+            position: absolute;
+            width: 200px;
+            height: 120px;
+            background: #4a4a4a;
+            border-radius: 10px;
+            bottom: 0;
+        }
+
+        .camera-lens {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: #2a2a2a;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -30%);
+            border: 15px solid #3a3a3a;
+        }
+
+        .camera-flash {
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background: #5a5a5a;
+            top: 20px;
+            right: 30px;
+            border-radius: 3px;
+        }
+
+        .camera-top {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            background: #3a3a3a;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px 5px 0 0;
+        }
+
+        .camera-button {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #666;
+            border-radius: 50%;
+            top: 10px;
+            right: 20px;
+        }
+
+        /* 2. Sunset Scene */
+        .sunset {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(to bottom, 
+                #ff7e5f 0%, 
+                #feb47b 30%, 
+                #ffeb88 60%, 
+                #87ceeb 100%
+            );
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .sun {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #ff4500;
+            border-radius: 50%;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 40px #ff4500;
+            animation: glow 3s infinite alternate;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(45deg, #1e90ff, #00bfff);
+            transform-origin: bottom;
+            animation: wave 3s ease-in-out infinite;
+        }
+
+        .wave::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            top: -30px;
+            transform: skewY(3deg);
+            animation: wave-top 3s ease-in-out infinite;
+        }
+
+        /* 3. Starry Night */
+        .starry-night {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(to bottom, 
+                #0c1445 0%, 
+                #1a237e 50%, 
+                #283593 100%
+            );
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .moon {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #ffd700;
+            border-radius: 50%;
+            top: 30px;
+            right: 40px;
+            box-shadow: 0 0 30px #ffd700;
+        }
+
+        .swirl {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: swirl 10s linear infinite;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            box-shadow: 0 0 4px #fff;
+        }
+
+        /* 4. Butterfly */
+        .butterfly {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+        .wing {
+            position: absolute;
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff69b4, #da70d6);
+            border-radius: 100% 0;
+            transform-origin: bottom right;
+            animation: flutter 1s ease-in-out infinite alternate;
+        }
+
+        .wing.right {
+            right: 20px;
+            transform: scaleX(-1);
+        }
+
+        .wing.left {
+            left: 20px;
+        }
+
+        .body {
+            position: absolute;
+            width: 10px;
+            height: 100px;
+            background: #000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 5px;
+        }
+
+        /* 5. 3D Cube */
+        .cube-container {
+            width: 200px;
+            height: 200px;
+            perspective: 1000px;
+        }
+
+        .cube {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: spin 10s linear infinite;
+        }
+
+        .face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            backface-visibility: visible;
+        }
+
+        /* Animations */
+        @keyframes glow {
+            from { box-shadow: 0 0 40px #ff4500; }
+            to { box-shadow: 0 0 60px #ff4500; }
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes wave-top {
+            0%, 100% { transform: skewY(3deg); }
+            50% { transform: skewY(-3deg); }
+        }
+
+        @keyframes swirl {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes flutter {
+            from { transform: rotate(-20deg); }
+            to { transform: rotate(20deg); }
+        }
+
+        @keyframes spin {
+            from { transform: rotateX(0) rotateY(0); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        /* Cube Faces Positioning */
+        .face:nth-child(1) { transform: translateZ(50px); }
+        .face:nth-child(2) { transform: rotateY(180deg) translateZ(50px); }
+        .face:nth-child(3) { transform: rotateY(90deg) translateZ(50px); }
+        .face:nth-child(4) { transform: rotateY(-90deg) translateZ(50px); }
+        .face:nth-child(5) { transform: rotateX(90deg) translateZ(50px); }
+        .face:nth-child(6) { transform: rotateX(-90deg) translateZ(50px); }
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <!-- Camera Icon -->
+        <div class="art-piece">
+            <div class="camera">
+                <div class="camera-body"></div>
+                <div class="camera-lens"></div>
+                <div class="camera-flash"></div>
+                <div class="camera-top"></div>
+                <div class="camera-button"></div>
+            </div>
+            <h2 class="art-title">Flat Camera Icon</h2>
+        </div>
+
+        <!-- Sunset Scene -->
+        <div class="art-piece">
+            <div class="sunset">
+                <div class="sun"></div>
+                <div class="wave"></div>
+            </div>
+            <h2 class="art-title">Animated Sunset</h2>
+        </div>
+
+        <!-- Starry Night -->
+        <div class="art-piece">
+            <div class="starry-night">
+                <div class="moon"></div>
+                <div class="swirl"></div>
+                <div class="star" style="top: 20%; left: 30%;"></div>
+                <div class="star" style="top: 15%; left: 60%;"></div>
+                <div class="star" style="top: 40%; left: 80%;"></div>
+                <div class="star" style="top: 60%; left: 20%;"></div>
+                <div class="star" style="top: 75%; left: 50%;"></div>
+            </div>
+            <h2 class="art-title">Starry Night Tribute</h2>
+        </div>
+
+        <!-- Butterfly -->
+        <div class="art-piece">
+            <div class="butterfly">
+                <div class="wing left"></div>
+                <div class="wing right"></div>
+                <div class="body"></div>
+            </div>
+            <h2 class="art-title">Animated Butterfly</h2>
+        </div>
+
+        <!-- 3D Cube -->
+        <div class="art-piece">
+            <div class="cube-container">
+                <div class="cube">
+                    <div class="face">1</div>
+                    <div class="face">2</div>
+                    <div class="face">3</div>
+                    <div class="face">4</div>
+                    <div class="face">5</div>
+                    <div class="face">6</div>
+                </div>
+            </div>
+            <h2 class="art-title">Spinning 3D Cube</h2>
+        </div>
+    </div>
+</body>
+</html>
